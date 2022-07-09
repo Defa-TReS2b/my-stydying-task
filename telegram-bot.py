@@ -2,6 +2,8 @@ from config import TOKEN, keys
 from extensions import APIException, Converter
 import telebot
 
+''' This line is just a branch test'''
+
 bot = telebot.TeleBot(TOKEN)
 
 
@@ -31,7 +33,8 @@ def answer_message(message):
             raise APIException("Посмотрите внимательно, что-то не так ввели!")
         base, quote, amount = values
         if amount == "0":
-            bot.send_sticker(message.chat.id, "CAACAgIAAxkBAAEFORFix_YzISttURo-w8cDCsO_lq2ipQACOxgAAucJ-EixC_lH4h3d8ikE")
+            bot.send_sticker(message.chat.id,
+                             "CAACAgIAAxkBAAEFORFix_YzISttURo-w8cDCsO_lq2ipQACOxgAAucJ-EixC_lH4h3d8ikE")
             raise APIException("Ну и смысл тогда пользоваться конвертером? И так же ясно, что результат будет ноль!")
         total_amount = Converter.get_price(base, quote, amount)
     except APIException as e:
@@ -39,7 +42,8 @@ def answer_message(message):
     except Exception as e:
         bot.reply_to(message, f"Не удалось обработать команду\n{e}")
     else:
-        bot.send_message(message.chat.id, f"Итог:\n{amount} валюты {base.upper()} в валюту {quote.upper()} - {total_amount}")
+        bot.send_message(message.chat.id,
+                         f"Итог:\n{amount} валюты {base.upper()} в валюту {quote.upper()} - {total_amount}")
 
 
 bot.polling(none_stop=True)
